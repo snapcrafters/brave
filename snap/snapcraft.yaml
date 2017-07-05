@@ -1,0 +1,65 @@
+name: brave
+version: v0.17.13dev
+summary: Browse faster and safer with Brave.
+description: |
+ The new Brave browser automatically blocks ads and trackers, making it
+ faster and safer than your current browser. Start supporting publishers
+ today with our new Brave Payments system.
+
+grade: stable
+confinement: strict
+
+parts:
+  brave:
+    plugin: dump
+    source: https://github.com/brave/browser-laptop/releases/download/v0.17.13dev/brave_0.17.13_amd64.deb
+    source-type: deb
+    # Correct path to icon.
+    prepare: |
+      sed -i 's|Icon=brave|Icon=/usr/share/pixmaps/brave\.png|g' usr/share/applications/brave.desktop
+    after:
+      - desktop-gtk2
+    stage-packages:
+      - gconf2
+      - gir1.2-gnomekeyring-1.0
+      - libasound2
+      - libgl1-mesa-glx
+      - libglu1-mesa
+      - libgnome-keyring0
+      - libcap2
+      - libgcrypt20
+      - libnotify4
+      - libnspr4
+      - libnss3
+      - libpulse0
+      - libxtst6
+      - libxss1
+
+apps:
+  brave:
+    # Correct the TMPDIR path for Chromium Framework/Electron to
+    # ensure libappindicator has readable resources.
+    command: env TMPDIR=$XDG_RUNTIME_DIR PATH=/usr/local/bin:${PATH} ${SNAP}/bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox --no-default-browser-check --no-first-run
+    desktop: usr/share/applications/brave.desktop
+    plugs:
+      - alsa
+      - avahi-observe
+#     - browser-sandbox
+      - browser-support
+      - camera
+      - cups-control
+      - gsettings
+      - home
+      - mount-observe
+      - network
+      - opengl
+      - pulseaudio
+      - screen-inhibit-control
+      - unity7
+      - upower-observe
+      - x11
+
+#plugs:
+#  browser-sandbox:
+#    interface: browser-support
+#    allow-sandbox: true
