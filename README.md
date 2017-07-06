@@ -11,6 +11,9 @@
 <a href="https://build.snapcraft.io/user/snapcrafters/brave"><img src="https://build.snapcraft.io/badge/snapcrafters/brave.svg" alt="Snap Status"></a>
 </p>
 -->
+<p align="center">
+<a href="https://github.com/canonical-websites/build.snapcraft.io/issues/843">Bug #843</a>
+</p>
 
 ## Install
 
