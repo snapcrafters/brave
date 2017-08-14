@@ -39,13 +39,12 @@ apps:
   brave:
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
-    command: env TMPDIR=$XDG_RUNTIME_DIR PATH=/usr/local/bin:${PATH} ${SNAP}/bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox --no-default-browser-check --no-first-run
+    command: env TMPDIR=$XDG_RUNTIME_DIR PATH=/usr/local/bin:${PATH} ${SNAP}/bin/desktop-launch $SNAP/usr/bin/brave --no-default-browser-check --no-first-run
     desktop: usr/share/applications/brave.desktop
     plugs:
       - alsa
       - avahi-observe
-#     - browser-sandbox
-      - browser-support
+      - browser-sandbox
       - camera
       - cups-control
       - gsettings
@@ -59,7 +58,7 @@ apps:
       - upower-observe
       - x11
 
-#plugs:
-#  browser-sandbox:
-#    interface: browser-support
-#    allow-sandbox: true
+plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: true
