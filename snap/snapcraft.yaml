@@ -1,5 +1,5 @@
 name: brave
-version: v0.18.14dev
+version: v0.18.23dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -12,7 +12,7 @@ confinement: strict
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/browser-laptop/releases/download/v0.18.14dev/brave_0.18.14_amd64.deb
+    source: https://github.com/brave/browser-laptop/releases/download/v0.18.23dev/brave_0.18.23_amd64.deb
     source-type: deb
     # Correct path to icon.
     prepare: |
@@ -39,12 +39,13 @@ apps:
   brave:
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
-    command: env TMPDIR=$XDG_RUNTIME_DIR PATH=/usr/local/bin:${PATH} ${SNAP}/bin/desktop-launch $SNAP/usr/bin/brave --no-default-browser-check --no-first-run
+    command: env TMPDIR=$XDG_RUNTIME_DIR PATH=/usr/local/bin:${PATH} ${SNAP}/bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox --no-default-browser-check --no-first-run
     desktop: usr/share/applications/brave.desktop
     plugs:
       - alsa
       - avahi-observe
-      - browser-sandbox
+#     - browser-sandbox
+      - browser-support
       - camera
       - cups-control
       - gsettings
@@ -58,7 +59,7 @@ apps:
       - upower-observe
       - x11
 
-plugs:
-  browser-sandbox:
-    interface: browser-support
-    allow-sandbox: true
+#plugs:
+#  browser-sandbox:
+#    interface: browser-support
+#    allow-sandbox: true
