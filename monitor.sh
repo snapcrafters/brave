@@ -38,6 +38,7 @@ if [ ${REBUILD} -eq 1 ]; then
     echo rebuild
     mv snap/snapcraft.yaml.new snap/snapcraft.yaml
     echo "OLD_VERSION=${VERSION}" > OLD_VERSION
+    git add snap/snapcraft.yaml OLD_VERSION
     git commit -m "Version bumped to ${VERSION}"
     git push
 fi
