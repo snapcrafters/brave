@@ -20,9 +20,9 @@ parts:
     after:
       - desktop-gtk2
     stage-packages:
-      - gconf2
       - gir1.2-gnomekeyring-1.0
       - libasound2
+      - libgconf-2-4
       - libgl1-mesa-glx
       - libglu1-mesa
       - libgnome-keyring0
@@ -37,15 +37,19 @@ parts:
 
 apps:
   brave:
+    command: bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox
+    desktop: usr/share/applications/brave.desktop
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
-    command: env TMPDIR=$XDG_RUNTIME_DIR PATH=/usr/local/bin:${PATH} ${SNAP}/bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox --no-default-browser-check --no-first-run
-    desktop: usr/share/applications/brave.desktop
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
     plugs:
       - alsa
       - avahi-observe
 #     - browser-sandbox
       - browser-support
+      - desktop
+      - desktop-legacy
       - camera
       - cups-control
       - gsettings
@@ -57,8 +61,6 @@ apps:
       - screen-inhibit-control
       - unity7
       - upower-observe
-      - desktop
-      - desktop-legacy
       - wayland
 
 #plugs:
