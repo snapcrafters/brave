@@ -1,5 +1,5 @@
 name: brave
-version: 
+version: v0.19.131dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -12,7 +12,7 @@ confinement: strict
 parts:
   brave:
     plugin: dump
-    source: 
+    source: https://github.com/brave/browser-laptop/releases/download/v0.19.131dev/brave_0.19.131_amd64.deb
     source-type: deb
     # Correct path to icon.
     prepare: |
