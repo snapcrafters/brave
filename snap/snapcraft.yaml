@@ -1,5 +1,5 @@
 name: brave
-version: v0.21.18dev
+version: v0.22.13dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -12,13 +12,13 @@ confinement: strict
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/browser-laptop/releases/download/v0.21.18dev/brave_0.21.18_amd64.deb
+    source: https://github.com/brave/browser-laptop/releases/download/v0.22.13dev/brave_0.22.13_amd64.deb
     source-type: deb
     # Correct path to icon.
     prepare: |
       sed -i 's|Icon=brave|Icon=/usr/share/pixmaps/brave\.png|g' usr/share/applications/brave.desktop
     after:
-      - desktop-gtk2
+      - desktop-gtk3
     stage-packages:
       - gir1.2-gnomekeyring-1.0
       - libasound2

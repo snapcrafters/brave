@@ -18,7 +18,7 @@ parts:
     prepare: |
       sed -i 's|Icon=brave|Icon=/usr/share/pixmaps/brave\.png|g' usr/share/applications/brave.desktop
     after:
-      - desktop-gtk2
+      - desktop-gtk3
     stage-packages:
       - gir1.2-gnomekeyring-1.0
       - libasound2
