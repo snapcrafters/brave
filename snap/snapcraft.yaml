@@ -1,5 +1,5 @@
 name: brave
-version: v0.23.19dev
+version: v0.24.0dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -12,7 +12,7 @@ confinement: strict
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/browser-laptop/releases/download/v0.23.19dev/brave_0.23.19_amd64.deb
+    source: https://github.com/brave/browser-laptop/releases/download/v0.24.0dev/brave_0.24.0_amd64.deb
     source-type: deb
     # Correct path to icon.
     prepare: |
@@ -67,3 +67,16 @@ apps:
 #  browser-sandbox:
 #    interface: browser-support
 #    allow-sandbox: true
+plugs:
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
