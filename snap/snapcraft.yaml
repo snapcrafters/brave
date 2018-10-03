@@ -17,6 +17,7 @@ parts:
     # Correct path to icon.
     prepare: |
       sed -i 's|Icon=brave|Icon=/usr/share/pixmaps/brave\.png|g' usr/share/applications/brave.desktop
+      echo StartupWMClass=brave >> usr/share/applications/brave.desktop
     after:
       - desktop-gtk3
     stage-packages:
