@@ -1,5 +1,5 @@
 name: brave
-version: v0.24.0dev
+version: v0.55.22dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -15,12 +15,11 @@ architectures:
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/browser-laptop/releases/download/v0.24.0dev/brave_0.24.0_amd64.deb
+    source: https://github.com/brave/brave-browser/releases/download/v0.55.22/brave-browser_0.55.22_amd64.deb
     source-type: deb
     # Correct path to icon.
-    prepare: |
-      sed -i 's|Icon=brave|Icon=/usr/share/pixmaps/brave\.png|g' usr/share/applications/brave.desktop
-      echo StartupWMClass=brave >> usr/share/applications/brave.desktop
+    override-pull: |
+      snapcraftctl pull  && rm -rf etc/cron.daily/ &&  rm -rf usr/bin/brave-browser
     after:
       - desktop-gtk3
     stage-packages:
@@ -42,7 +41,6 @@ parts:
 apps:
   brave:
     command: bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox
-    desktop: usr/share/applications/brave.desktop
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
     environment:
