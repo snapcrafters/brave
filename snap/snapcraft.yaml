@@ -1,5 +1,5 @@
 name: brave
-version: v0.55.22dev
+version: v0.56.12-6.dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -15,11 +15,15 @@ architectures:
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/brave-browser/releases/download/v0.55.22/brave-browser_0.55.22_amd64.deb
+    source: https://github.com/brave/brave-browser/releases/download/v0.56.12/brave-browser_0.56.12_amd64.deb
     source-type: deb
     # Correct path to icon.
     override-pull: |
-      snapcraftctl pull  && rm -rf etc/cron.daily/ &&  rm -rf usr/bin/brave-browser
+      snapcraftctl pull
+      rm -rf etc/cron.daily/ 
+      rm -rf usr/bin/brave-browser 
+      chmod 755 opt/brave.com/brave/brave-sandbox 
+      sed -i 's|Icon=brave-browser|Icon=/opt/brave.com/brave/product_logo_128\.png|g' usr/share/applications/brave-browser.desktop
     after:
       - desktop-gtk3
     stage-packages:
@@ -40,7 +44,8 @@ parts:
 
 apps:
   brave:
-    command: bin/desktop-launch $SNAP/usr/bin/brave --no-sandbox
+    command: bin/desktop-launch $SNAP/opt/brave.com/brave/brave  --no-sandbox
+    desktop: usr/share/applications/brave-browser.desktop
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
     environment:
@@ -48,7 +53,6 @@ apps:
     plugs:
       - alsa
       - avahi-observe
-#     - browser-sandbox
       - browser-support
       - desktop
       - desktop-legacy
@@ -65,10 +69,6 @@ apps:
       - upower-observe
       - wayland
 
-#plugs:
-#  browser-sandbox:
-#    interface: browser-support
-#    allow-sandbox: true
 plugs:
   gtk-3-themes:
     interface: content
