@@ -20,8 +20,7 @@ script:
   - sudo snapcraft cleanbuild
   - sudo cp *.snap "$(echo "$TRAVIS_REPO_SLUG" | sed -e 's|.*/\(.*\)|\1|')-pr$TRAVIS_PULL_REQUEST.snap"
 after_success:
-  - sudo snap install transfer
-  - timeout 180 sudo /snap/bin/transfer "$(echo "$TRAVIS_REPO_SLUG" | sed -e 's|.*/\(.*\)|\1|')-pr$TRAVIS_PULL_REQUEST.snap"
+  - sudo for snap in *.snap ; do echo $snap; snapcraft push ${snap} --release edge ; done
 after_failure:
   - sudo journalctl -u snapd
   - sudo snap install http
