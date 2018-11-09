@@ -1,5 +1,5 @@
 name: brave
-version: v0.56.12-6.dev
+version: v0.56.12-8.dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -44,7 +44,7 @@ parts:
 
 apps:
   brave:
-    command: bin/desktop-launch $SNAP/opt/brave.com/brave/brave  --no-sandbox
+    command: bin/desktop-launch $SNAP/opt/brave.com/brave/brave
     desktop: usr/share/applications/brave-browser.desktop
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
@@ -53,6 +53,7 @@ apps:
     plugs:
       - alsa
       - avahi-observe
+      - browser-sandbox
       - browser-support
       - desktop
       - desktop-legacy
@@ -70,6 +71,9 @@ apps:
       - wayland
 
 plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: true
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
