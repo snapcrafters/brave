@@ -1,5 +1,5 @@
 name: brave
-version: v0.56.12-8.dev
+version: v0.58.10-1.dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -15,15 +15,16 @@ architectures:
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/brave-browser/releases/download/v0.56.12/brave-browser_0.56.12_amd64.deb
+    source: https://github.com/brave/brave-browser/releases/download/v0.58.10/brave-browser-dev_0.58.10_amd64.deb
     source-type: deb
     # Correct path to icon.
     override-pull: |
       snapcraftctl pull
       rm -rf etc/cron.daily/ 
-      rm -rf usr/bin/brave-browser 
-      chmod 755 opt/brave.com/brave/brave-sandbox 
-      sed -i 's|Icon=brave-browser|Icon=/opt/brave.com/brave/product_logo_128\.png|g' usr/share/applications/brave-browser.desktop
+      rm -rf usr/bin/brave-browser-dev
+      chmod 4555 opt/brave.com/brave-dev/brave-sandbox
+      unlink opt/brave.com/brave-dev/brave-browser
+      sed -i 's|Icon=brave-browser|Icon=/opt/brave.com/brave-dev/product_logo_128\.png|g' usr/share/applications/brave-browser-dev.desktop
     after:
       - desktop-gtk3
     stage-packages:
@@ -44,8 +45,8 @@ parts:
 
 apps:
   brave:
-    command: bin/desktop-launch $SNAP/opt/brave.com/brave/brave
-    desktop: usr/share/applications/brave-browser.desktop
+    command: bin/desktop-launch $SNAP/opt/brave.com/brave-dev/brave-browser-dev
+    desktop: usr/share/applications/brave-browser-dev.desktop
     # Correct the TMPDIR path for Chromium Framework/Electron to
     # ensure libappindicator has readable resources.
     environment:
@@ -54,21 +55,21 @@ apps:
       - alsa
       - avahi-observe
       - browser-sandbox
-      - browser-support
-      - desktop
-      - desktop-legacy
       - camera
       - cups-control
+      - desktop
       - gsettings
       - home
       - mount-observe
       - network
       - opengl
+      - password-manager-service
       - pulseaudio
+      - remove-media
       - screen-inhibit-control
       - unity7
       - upower-observe
-      - wayland
+      - x11
 
 plugs:
   browser-sandbox:
