@@ -1,5 +1,5 @@
 name: brave
-version: v0.58.10-1.dev
+version: v0.60.10-1.dev
 summary: Browse faster and safer with Brave.
 description: |
  The new Brave browser automatically blocks ads and trackers, making it
@@ -15,7 +15,7 @@ architectures:
 parts:
   brave:
     plugin: dump
-    source: https://github.com/brave/brave-browser/releases/download/v0.58.10/brave-browser-dev_0.58.10_amd64.deb
+    source: https://github.com/brave/brave-browser/releases/download/v0.58.10/brave-browser-dev_0.60.10_amd64.deb
     source-type: deb
     # Correct path to icon.
     override-pull: |
